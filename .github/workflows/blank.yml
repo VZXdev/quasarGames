@@ -1,0 +1,35 @@
+name: Quasar Games
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  scrape_proxies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install requests module
+        run: pip install requests
+
+      - name: Run scrapeProxy.py
+        run: python scrapeProxy.py
+
+      - name: Commit proxy.txt
+        uses: EndBug/add-and-commit@v9.1.3
+        with:
+          author_name: bruhb0y
+          author_email: bruh.boy0@yandex.ru
+          add: proxy.txt
+          message: hi chat
